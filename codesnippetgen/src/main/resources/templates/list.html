@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Snippets</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h2 class="text-center">Code Snippets</h2>
+
+    <!-- Search Bar -->
+    <form th:action="@{/snippets/search}" method="get" class="d-flex mb-3">
+        <input type="text" name="keyword" class="form-control me-2" placeholder="Search by title..." required>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <!-- Snippets Table -->
+    <table class="table table-striped">
+        <thead class="table-dark">
+        <tr>
+            <th>Title</th>
+            <th>Language</th>
+            <th>Created At</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="snippet : ${snippets}">
+            <td th:text="${snippet.title}"></td>
+            <td th:text="${snippet.language}"></td>
+            <td th:text="${snippet.createdAt}"></td>
+            <td>
+                <a th:href="@{/snippets/{id}(id=${snippet.id})}" class="btn btn-info btn-sm">View</a>
+                <a th:href="@{/snippets/delete/{id}(id=${snippet.id})}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="/snippets/new" class="btn btn-success">Add New Snippet</a>
+</div>
+</body>
+</html>
